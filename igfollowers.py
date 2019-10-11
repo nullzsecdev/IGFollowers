@@ -7,7 +7,7 @@ import os
 
 USERNAME=None
 PASSWORD=None
-mod_path = os.path.dirname(os.path.abspath(__file__))
+mod_path = os.path.dirname(os.path.realpath(__file__))
 try:
     with open(f"{mod_path}/instagram_creds", 'r') as f:
         creds = f.readline()
