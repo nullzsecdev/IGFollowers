@@ -6,8 +6,6 @@ import os
 def install(package):
     if hasattr(pip, 'main'):
         pip.main(['install', package])
-    else:
-        pip._internal.main(['install', package])
 
 def install_requirements():
     with open('requirements.txt', 'r') as f:
