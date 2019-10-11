@@ -7,10 +7,9 @@ git clone https://github.com/nullzsecdev/IGFollowers.git
 cd IGFollowers
 # to install it to /usr/local/bin/igfollowers (requires sudo)
 sudo ./setup.py --link
+igfollowers -h
 # otherwise just
 ./setup.py
-
-
-igfollowers -h
+./igfollowers.py -h
 
 ```
