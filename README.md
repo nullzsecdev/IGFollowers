@@ -5,7 +5,12 @@ This repository requires python3 to run properly.
 ```
 git clone https://github.com/nullzsecdev/IGFollowers.git
 cd IGFollowers
+# to install it to /usr/local/bin/igfollowers (requires sudo)
+sudo ./setup.py --link
+# otherwise just
 ./setup.py
+
+
 igfollowers -h
 
 ```

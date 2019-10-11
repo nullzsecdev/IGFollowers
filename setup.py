@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import pip
 import os
+import sys
 
 
 def install(package):
@@ -18,6 +19,12 @@ def add_symlink():
 
 
 if __name__ == "__main__":
-    install_requirements()
-    add_symlink()
-
+    try:
+        install_requirements()
+    except:
+        print("Couldnt install all necessary requirements. Try manually installing with `pip install -r requirements.txt`")
+    if len(sys.argv) > 1 and sys.argv[1] == '--link':
+        try:
+            add_symlink()
+        except:
+            print("Unable to add symlink.")

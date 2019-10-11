@@ -13,10 +13,11 @@ try:
         creds = f.readline()
         user,password = creds.split(':')
         if user != 'username' and password != 'password':
-            USERNAME = user
-            PASSWORD = password
+            USERNAME = user.strip()
+            PASSWORD = password.strip()
 except:
     pass
+
 
 parser = argparse.ArgumentParser(description="""
         igfollowers is a tool for performing basic actions on an instagram account(s) followers.
@@ -31,7 +32,6 @@ parser.add_argument('profiles', nargs="+", metavar="profile", help="The username
 args = parser.parse_args()
 USERNAME = args.username if args.username is not None else USERNAME
 PASSWORD = args.password if args.password is not None else PASSWORD
-
 if USERNAME is None or PASSWORD is None:
     print("A username and password must be specified or hardcoded.")
     parser.print_help()
@@ -51,7 +51,7 @@ def print_profiles(profiles):
     print("\n\n")
 
 loader = instaloader.Instaloader()
-loader.login(USERNAME,PASSWORD)
+loader.login(USERNAME,str(PASSWORD))
 
 profiles = []
 print("Loading profiles...")
