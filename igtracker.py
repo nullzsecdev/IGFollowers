@@ -163,9 +163,10 @@ class Profile(instaloader.Profile):
         log_file = f"{args.data_location}logs/{self.username}.log"
         if os.path.exists(log_file):
             last_write = os.path.getmtime(log_file)
+            posts = self.search_posts(after=last_write)
         else: 
-            last_write = None
-        posts = self.search_posts(after=last_write)
+            posts = self.posts
+       
         print(f"Logging {len(posts)} posts")
         with open(log_file, 'a') as f:
             for post in posts:
@@ -225,6 +226,7 @@ def login(username, password):
 def get_args():
     global args, parser
     parser.add_argument('--log', action="store_true", help="Write results to the logfile.")
+    parser.add_argument('--slow', dest="fast_update", action="store_false", help="Dont stop when getting to already downloaded post.")
     parser.add_argument('--init-logservice', action="store_true", help="Run this to create the logservice. Use -f to set the frequency to check for new posts. The rest of the arguments will remain the same when it gets run.")
     parser.add_argument('-f', '--frequency', type=int, default=10, help="Frequency (in minutes) to run the script.")
     parser.add_argument('--format', type=str, default="id: {id}\ncontent: {display_url}\ncaption: {}", help="Frequency (in minutes) to run the script.")
@@ -253,8 +255,8 @@ def print_profiles(profiles):
     print(s)
     print("\n\n")
 
-def aggregate():
-    loader.download_profiles(profiles, fast_update=True)
+def aggregate(fast_update=True):
+    loader.download_profiles(profiles, fast_update=fast_update)
 
 def show_stats():
     for profile in profiles:
@@ -345,7 +347,7 @@ if __name__ == "__main__":
     login(args.username, args.password)
     load_profiles(args.profiles)
     if args.update:
-        aggregate()
+        aggregate(args.fast_update)
     if args.show_stats:
         show_stats()
     if args.init_logservice:
