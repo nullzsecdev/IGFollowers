@@ -1,3 +1,7 @@
 argparse
 texttable
-instaloader
+instaloaderß
+IPython
+crontab
+arrow
+prompt_toolkit
